@@ -31,7 +31,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+var oneDay = 86400000;
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: oneDay }));
 
 app.use('/', routes);
 app.use('/users', users);
