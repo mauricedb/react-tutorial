@@ -65,7 +65,24 @@ gulp.task('concat:js', function () {
     .pipe(gulp.dest('.'));
 });
 
+gulp.task('concat:css', function () {
+  gulp.src([
+      'src/css/bootstrap/bootstrap.min.css',
+      'src/font-awesome/css/font-awesome.min.css',
+      'src/css/plugins/owl-carousel/owl.carousel.css',
+      'src/css/plugins/owl-carousel/owl.theme.css',
+      'src/css/plugins/owl-carousel/owl.transitions.css',
+      'src/css/plugins/magnific-popup.css',
+      'src/css/plugins/background.css',
+      'src/css/plugins/animate.css',
+      'src/css/vitality-blue.css',
+    ])
+    .pipe(concat('./public/assets/css/site.css'))
+    .pipe(gulp.dest('.'));
+});
+
 gulp.task('default', [
-  'concat:js'
+  'concat:js',
+  'concat:css',
 ]);
 
