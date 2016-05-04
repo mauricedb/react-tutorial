@@ -4,6 +4,8 @@ var gulp = require('gulp'),
   livereload = require('gulp-livereload'),
   less = require('gulp-less');
 
+var concat = require("gulp-concat");
+
 gulp.task('less', function () {
   gulp.src('./public/css/*.less')
     .pipe(plumber())
@@ -12,7 +14,7 @@ gulp.task('less', function () {
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch('./public/css/*.less', ['less']);
 });
 
@@ -24,7 +26,7 @@ gulp.task('develop', function () {
     stdout: false
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {
-      if(/^Express server listening on port/.test(chunk)){
+      if (/^Express server listening on port/.test(chunk)) {
         livereload.changed(__dirname);
       }
     });
@@ -33,8 +35,36 @@ gulp.task('develop', function () {
   });
 });
 
+//gulp.task('default', [
+//  'less',
+//  'develop',
+//  'watch'
+//]);
+
+
+gulp.task('concat:js', function () {
+  gulp.src([
+      'src/js/jquery.js',
+      'src/js/bootstrap/bootstrap.min.js',
+      'src/js/plugins/jquery.easing.min.js',
+      'src/js/plugins/classie.js',
+      'src/js/plugins/cbpAnimatedHeader.js',
+      'src/js/plugins/owl-carousel/owl.carousel.js',
+      'src/js/plugins/jquery.magnific-popup/jquery.magnific-popup.min.js',
+      'src/js/plugins/background/core.js',
+      'src/js/plugins/background/transition.js',
+      'src/js/plugins/background/background.js',
+      'src/js/plugins/jquery.mixitup.js',
+      'src/js/plugins/wow/wow.min.js',
+      'src/js/contact_me.js',
+      'src/js/plugins/jqBootstrapValidation.js',
+      'src/js/vitality.js'
+    ])
+    .pipe(concat('./public/assets/js/site.js'))
+    .pipe(gulp.dest('.'));
+});
+
 gulp.task('default', [
-  'less',
-  'develop',
-  'watch'
+  'concat:js'
 ]);
+
