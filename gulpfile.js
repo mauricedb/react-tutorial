@@ -44,6 +44,7 @@ gulp.task('develop', function () {
 
 gulp.task('concat:js', function () {
   gulp.src([
+      'src/js/plugins/retina/retina.min.js',
       'src/js/jquery.js',
       'src/js/bootstrap/bootstrap.min.js',
       'src/js/plugins/jquery.easing.min.js',
